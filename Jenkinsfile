@@ -8,7 +8,7 @@ pipeline {
     agent any
 
     environment {
-        WORKSPACE = "/repos/TrabajoFinalM4SWD/"
+        CREDENCIAL_ID = "CheckerJenkinsGrupo6"
     }
 
     stages {
@@ -48,17 +48,19 @@ pipeline {
         stage("selenium"){
             steps {
                 script {
-                    checkout([  
+                    checkout([
                         $class: 'GitSCM', 
-                        branches: [[name: 'refs/heads/main']], 
-                        doGenerateSubmoduleConfigurations: false, 
+                        branches: [[name: '*/main']], 
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'selenium']], 
-                        submoduleCfg: [],
-                        userRemoteConfigs: [[url: 'https://github.com/usach-devops-seccion1-grupo6/laboratorio-modulo4-selenium.git']]
+                        userRemoteConfigs: [
+                            [
+                                credentialsId: "${env.CREDENCIAL_ID}", 
+                                url: 'https://github.com/usach-devops-seccion1-grupo6/laboratorio-modulo4-selenium'
+                            ]
+                        ]
                     ])
 
                     dir("selenium"){
-                        sh 'pwd'
                         sh 'mvn test'
                     }
                 }
