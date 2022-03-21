@@ -48,7 +48,7 @@ pipeline {
         stage("newman"){
             steps {
                 script {
-                    sh "newman pruebas/dxc_collection.json"
+                    sh "newman run pruebas/dxc_collection.json"
                 }
             }
         }
