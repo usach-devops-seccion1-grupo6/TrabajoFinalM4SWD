@@ -45,14 +45,6 @@ pipeline {
             }
         }
 
-        stage("newman"){
-            steps {
-                script {
-                    sh "newman run pruebas/dxc_collection.json"
-                }
-            }
-        }
-
         stage("selenium"){
             steps {
                 script {
@@ -69,6 +61,14 @@ pipeline {
                         sh 'pwd'
                         sh 'mvn test'
                     }
+                }
+            }
+        }
+
+        stage("newman"){
+            steps {
+                script {
+                    sh "newman run pruebas/dxc_collection.json"
                 }
             }
         }
