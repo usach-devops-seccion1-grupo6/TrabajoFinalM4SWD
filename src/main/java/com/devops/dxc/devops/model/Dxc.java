@@ -9,7 +9,7 @@ public class Dxc implements Serializable{
 	 */
 	private static final long serialVersionUID = -2988002029080131424L;
 	
-	private int dxc;
+	
 	private int saldo;
 	private int impuesto;
 	private int sueldo;
@@ -23,12 +23,7 @@ public class Dxc implements Serializable{
 	public Dxc() {
 	}
 
-	public int getDxc() {
-		return Util.getDxc(ahorro,sueldo);
-	}
-	public void setDxc(int dxc) {
-		this.dxc = dxc;
-	}
+
 	public int getSaldo() {
 		return saldo;
 	}
