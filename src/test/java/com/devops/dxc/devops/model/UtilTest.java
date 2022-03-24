@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 public class UtilTest {
     @Test
     void testGetDxc() {
-        //assertEquals();
+        assertEquals(1000000, Util.getDxc(1200000));
+        assertEquals(4000000, Util.getDxc(40000000));
+        assertEquals(800000, Util.getDxc(800000));
     }
 
     @Test
@@ -25,6 +27,7 @@ public class UtilTest {
 
     @Test
     void testSaldoRestante() {
-        
+        Assertions.assertThat(Util.saldoRestante(1200000, 1400000)).isGreaterThan(0);
+        assertEquals(200000, Util.saldoRestante(1200000, 1400000));
     }
 }
