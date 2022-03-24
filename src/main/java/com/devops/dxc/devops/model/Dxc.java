@@ -9,20 +9,22 @@ public class Dxc implements Serializable{
 	 */
 	private static final long serialVersionUID = -2988002029080131424L;
 	
-	
+	private int dxc;
 	private int saldo;
-	private int impuesto;
+	private String impuesto;
 	private int sueldo;
 	private int ahorro;
-
-	public Dxc(int ahorro, int sueldo){
-		this.ahorro = ahorro;
-		this.sueldo = sueldo;
-	}
 
 	public Dxc() {
 	}
 
+	public int getDxc() {
+		return dxc;
+	}
+
+	public void setDxc(int dxc) {
+		this.dxc = dxc;
+	}
 
 	public int getSaldo() {
 		return saldo;
@@ -30,10 +32,10 @@ public class Dxc implements Serializable{
 	public void setSaldo(int saldo) {
 		this.saldo = saldo;
 	}
-	public int getImpuesto() {
+	public String getImpuesto() {
 		return impuesto;
 	}
-	public void setImpuesto(int impuesto) {
+	public void setImpuesto(String impuesto) {
 		this.impuesto = impuesto;
 	}
 
