@@ -56,15 +56,16 @@ public class Util {
         return jsonObject.get("uf").getAsJsonObject().get("valor").getAsInt();
     }
 
-    public static String getImpuesto(int sueldo) {
-        
-        if(sueldo < 1500000){
-            return "No"; 
+    public static int getImpuesto(int sueldo) {
+
+        if (sueldo < 1500000) {
+            return 0;
         }
-        
+
         Integer sueldoAnual = sueldo * 12;
 
-        // tabla con valores de https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
+        // tabla con valores de
+        // https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
         float impuesto = 0.0f;
         if (sueldoAnual > 8775702 && (sueldoAnual < 19501560)) {
             impuesto = 0.04f;
@@ -82,7 +83,7 @@ public class Util {
             impuesto = 0.4f;
         }
 
-        return impuesto > 0 ? "Si" : "No";
+        return (int) impuesto;
     }
 
     public static int saldoRestante(int ahorro, int sueldo) {

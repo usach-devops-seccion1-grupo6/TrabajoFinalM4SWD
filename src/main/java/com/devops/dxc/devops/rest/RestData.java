@@ -29,7 +29,7 @@ public class RestData {
 	}
 
 	@GetMapping(path = "/impuesto", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String impuesto(@RequestParam(name = "sueldo") Integer sueldo) {
+	public int impuesto(@RequestParam(name = "sueldo") Integer sueldo) {
 		return Util.getImpuesto(sueldo);
 	}
 
