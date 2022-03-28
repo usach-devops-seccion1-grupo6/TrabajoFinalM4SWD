@@ -65,11 +65,20 @@ public class Util {
         
         Integer sueldoAnual = sueldo * 12;
 
+        // tabla con valores de https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
         float impuesto = 0.0f;
-        if (sueldoAnual > 17864280 && (sueldoAnual < 29773800)) {
+        if (sueldoAnual > 19501560 && (sueldoAnual < 32502600)) {
             impuesto = 0.08f;
-        } else if (sueldoAnual > 29700000 && (sueldoAnual < 41600000)) {
+        } else if (sueldoAnual >= 32502600 && (sueldoAnual < 45503640)) {
             impuesto = 0.135f;
+        } else if (sueldoAnual >= 45503640 && (sueldoAnual < 58504680)) {
+            impuesto = 0.230f;
+        } else if (sueldoAnual >= 58504680 && (sueldoAnual < 78006240)) {
+            impuesto = 0.304f;
+        } else if (sueldoAnual >= 78006240 && (sueldoAnual < 201516120)) {
+            impuesto = 0.35f;
+        } else if (sueldoAnual >= 201516120) {
+            impuesto = 0.4f;
         }
 
         return impuesto > 0 ? "Si" : "No";
