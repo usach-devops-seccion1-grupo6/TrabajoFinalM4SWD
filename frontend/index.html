@@ -114,8 +114,8 @@
                         calcular.disabled = false;
                     }
 
-                    var url_base = 'http://TrabajoFinalM4SWD:9091/rest/msdxc/todo?';
-                    //var url_base = 'http://localhost:9091/rest/msdxc/todo?';
+                    //var url_base = 'http://TrabajoFinalM4SWD:9091/rest/msdxc/todo?';
+                    var url_base = 'http://jenkins-blueocean:9091/rest/msdxc/todo?';
                     var query = url_base + 'sueldo=' + limpiar(sueldo.value) + '&ahorro=' + limpiar(ahorro.value);
                     request.open('GET', query);
                     request.send(null);
