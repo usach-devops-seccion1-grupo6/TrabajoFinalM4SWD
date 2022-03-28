@@ -62,28 +62,28 @@ public class Util {
             return 0;
         }
 
-        Integer sueldoAnual = sueldo * 12;
+        Integer ingresosTotales = sueldo * 12 + getDxc(ahorro);
 
         // tabla con valores de
         // https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
         float impuesto = 0.0f;
-        if (sueldoAnual > 8775702 && (sueldoAnual < 19501560)) {
-            impuesto = 0.04f;
-        } else if (sueldoAnual >= 19501560 && (sueldoAnual < 32502600)) {
-            impuesto = 0.08f;
-        } else if (sueldoAnual >= 32502600 && (sueldoAnual < 45503640)) {
-            impuesto = 0.135f;
-        } else if (sueldoAnual >= 45503640 && (sueldoAnual < 58504680)) {
-            impuesto = 0.230f;
-        } else if (sueldoAnual >= 58504680 && (sueldoAnual < 78006240)) {
-            impuesto = 0.304f;
-        } else if (sueldoAnual >= 78006240 && (sueldoAnual < 201516120)) {
-            impuesto = 0.35f;
-        } else if (sueldoAnual >= 201516120) {
-            impuesto = 0.4f;
+        if (ingresosTotales > 8775702 && (ingresosTotales < 19501560)) {
+            impuesto = 0.04f * ingresosTotales - 351028;
+        } else if (ingresosTotales >= 19501560 && (ingresosTotales < 32502600)) {
+            impuesto = 0.08f * ingresosTotales - 1131090;
+        } else if (ingresosTotales >= 32502600 && (ingresosTotales < 45503640)) {
+            impuesto = 0.135f * ingresosTotales - 2918733;
+        } else if (ingresosTotales >= 45503640 && (ingresosTotales < 58504680)) {
+            impuesto = 0.230f * ingresosTotales - 7241579;
+        } else if (ingresosTotales >= 58504680 && (ingresosTotales < 78006240)) {
+            impuesto = 0.304f * ingresosTotales - 11570925;
+        } else if (ingresosTotales >= 78006240 && (ingresosTotales < 201516120)) {
+            impuesto = 0.35f * ingresosTotales - 15159212;
+        } else if (ingresosTotales >= 201516120) {
+            impuesto = 0.4f * ingresosTotales - 25235018;
         }
 
-        return (int) impuesto * (sueldoAnual + ahorro);
+        return (int) impuesto;
     }
 
     public static int saldoRestante(int ahorro, int sueldo) {

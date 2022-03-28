@@ -104,7 +104,7 @@
                             error.classList.add('d-none');
                             document.querySelector('#diez').innerHTML = formatear(response.dxc, '$');
                             document.querySelector('#saldo').innerHTML = formatear(response.saldo, '$');
-                            document.querySelector('#impuesto').innerHTML = response.impuesto;
+                            document.querySelector('#impuesto').innerHTML = formatear(response.impuesto, '$');
                         } else {
                             error.classList.remove('d-none');
                             resultado.classList.add('d-none');
