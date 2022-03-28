@@ -18,26 +18,26 @@ public class Util {
      * @param ahorro
      * @return
      */
-    public static int getDxc(int ahorro) {
+    public static long getDxc(long ahorro) {
         if (((ahorro * 0.1) / getUf()) > 150) {
-            return (int) (150 * getUf());
+            return (long) (150 * getUf());
         } else if ((ahorro * 0.1) <= 1000000 && ahorro >= 1000000) {
-            return (int) 1000000;
+            return (long) 1000000;
         } else if (ahorro <= 1000000) {
-            return (int) ahorro;
+            return (long) ahorro;
         } else {
-            return (int) (ahorro * 0.1);
+            return (long) (ahorro * 0.1);
         }
     }
 
     /**
      * Método que retorna el valor de la UF. Este método debe ser refactorizado por
-     * una integración a un servicio
+     * una longegración a un servicio
      * que retorne la UF en tiempo real. Por ejemplo mindicador.cl
      * 
      * @return
      */
-    public static int getUf() {
+    public static long getUf() {
 
         JsonObject jsonObject = null;
 
@@ -53,16 +53,16 @@ public class Util {
             e.printStackTrace();
         }
 
-        return jsonObject.get("uf").getAsJsonObject().get("valor").getAsInt();
+        return jsonObject.get("uf").getAsJsonObject().get("valor").getAsLong();
     }
 
-    public static int getImpuesto(int sueldo, int ahorro) {
+    public static long getImpuesto(long sueldo, long ahorro) {
 
         if (sueldo < 1500000) {
             return 0;
         }
 
-        Integer ingresosTotales = sueldo * 12 + getDxc(ahorro);
+        Long ingresosTotales = sueldo * 12 + getDxc(ahorro);
 
         // tabla con valores de
         // https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
@@ -83,10 +83,10 @@ public class Util {
             impuesto = 0.4f * ingresosTotales - 25235018;
         }
 
-        return (int) impuesto;
+        return (long) impuesto;
     }
 
-    public static int saldoRestante(int ahorro, int sueldo) {
+    public static long saldoRestante(long ahorro, long sueldo) {
         return ahorro - getDxc(ahorro);
     }
 

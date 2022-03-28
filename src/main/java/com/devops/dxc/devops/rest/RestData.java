@@ -19,27 +19,27 @@ public class RestData {
 	//private final static Logger LOGGER = Logger.getLogger("devops.subnivel.Control");
 
 	@GetMapping(path = "/dxc", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int getData(@RequestParam(name = "ahorro") Integer ahorro) {
+	public long getData(@RequestParam(name = "ahorro") Long ahorro) {
 		return Util.getDxc(ahorro);
 	}
 
 	@GetMapping(path = "/saldo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int getSaldo(@RequestParam(name = "ahorro") Integer ahorro, @RequestParam(name = "sueldo") Integer sueldo) {
+	public long getSaldo(@RequestParam(name = "ahorro") Long ahorro, @RequestParam(name = "sueldo") Long sueldo) {
 		return Util.saldoRestante(ahorro, sueldo);
 	}
 
 	@GetMapping(path = "/impuesto", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int impuesto(@RequestParam(name = "ahorro") Integer ahorro, @RequestParam(name = "sueldo") Integer sueldo) {
+	public long impuesto(@RequestParam(name = "ahorro") Long ahorro, @RequestParam(name = "sueldo") Long sueldo) {
 		return Util.getImpuesto(sueldo, ahorro);
 	}
 
 	@GetMapping(path = "/uf", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int getUf() {
+	public long getUf() {
 		return Util.getUf();
 	}
 
 	@GetMapping(path = "/todo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Dxc getData(@RequestParam(name = "sueldo") Integer sueldo, @RequestParam(name = "ahorro") Integer ahorro){
+	public @ResponseBody Dxc getData(@RequestParam(name = "sueldo") Long sueldo, @RequestParam(name = "ahorro") Long ahorro){
         Dxc response = new Dxc();
 		response.setImpuesto(Util.getImpuesto(sueldo, ahorro));
 		response.setSaldo(Util.saldoRestante(ahorro, sueldo));
