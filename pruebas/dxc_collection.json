@@ -135,7 +135,11 @@
 					"query": [
 						{
 							"key": "sueldo",
-							"value": "100000"
+							"value": "2000000"
+						},
+						{
+							"key": "ahorro",
+							"value": "50000000"
 						}
 					]
 				}
