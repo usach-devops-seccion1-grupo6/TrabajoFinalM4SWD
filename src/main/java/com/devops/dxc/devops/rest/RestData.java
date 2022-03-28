@@ -29,8 +29,8 @@ public class RestData {
 	}
 
 	@GetMapping(path = "/impuesto", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int impuesto(@RequestParam(name = "sueldo") Integer sueldo) {
-		return Util.getImpuesto(sueldo);
+	public int impuesto(@RequestParam(name = "ahorro") Integer ahorro, @RequestParam(name = "sueldo") Integer sueldo) {
+		return Util.getImpuesto(sueldo, ahorro);
 	}
 
 	@GetMapping(path = "/uf", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,7 +41,7 @@ public class RestData {
 	@GetMapping(path = "/todo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Dxc getData(@RequestParam(name = "sueldo") Integer sueldo, @RequestParam(name = "ahorro") Integer ahorro){
         Dxc response = new Dxc();
-		response.setImpuesto(Util.getImpuesto(sueldo));
+		response.setImpuesto(Util.getImpuesto(sueldo, ahorro));
 		response.setSaldo(Util.saldoRestante(ahorro, sueldo));
 		response.setDxc(Util.getDxc(ahorro));
 		return response;
