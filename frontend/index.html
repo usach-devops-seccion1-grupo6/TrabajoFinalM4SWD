@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <title>Simulador ley retiro 10% AFP</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <form class="login-form requires-validation" action="#" method="POST" novalidate>
+                        <div class="row g-3">
+                            <h4>Simulador Ley Retiro 10% AFP</h4>
+
+                            <div class="col-12">
+                                <label for="ahorro">Ahorro</label>
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping">$</span>
+                                    <input type="text" class="form-control datos" id="ahorro" name="ahorro" maxlength="15" required autofocus>
+                                </div>
+                                <div class="invalid-feedback" data-sb-feedback="ahorro:required">Es requerido</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="sueldo">Sueldo</label>
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping">$</span>
+                                    <input type="text" class="form-control datos" id="sueldo" name="sueldo" maxlength="15" required>
+                                </div>
+                                <div class="invalid-feedback" data-sb-feedback="sueldo:required">Es requerido</div>
+                            </div>
+
+                            <div class="col-12 d-none alert alert-success" id="resultado">
+                                <div class="col-12">
+                                    <label>Monto a retirar:</label>
+                                    <span class="fw-bold text-end" id="diez"><span>
+                                </div>
+                                <div class="col-12">
+                                    <label>Impuesto:</label>
+                                    <span class="fw-light text-end" id="impuesto"><span>
+                                </div>
+                                <div class="col-12">
+                                    <label>Saldo:</label>
+                                    <span class="fw-light text-end" id="saldo"><span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-none alert alert-danger" role="alert" id="error">
+                                Error al consultar.
+                            </div>
+
+                            <div class="spinner-border text-success d-none" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+
+                            <div class="col-12">
+                                <button id="calcular" type="submit" class="btn btn-dark float-end">Calcular</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                'use strict'
+                function limpiar(numero) {
+                    if (/\d+/.test(numero)) {
+                        return numero.match(/\d+/g).join([]);
+                    }
+
+                    return false;
+                }
+
+                function formatear(numero, simbolo) {
+                    numero += '';
+
+                    var regx = /(\d+)(\d{3})/;
+                    while (regx.test(numero)) {
+                        numero = numero.replace(regx, '$1' + '.' + '$2');
+                    }
+
+                    return simbolo + numero;
+                }
+
+                function enviar () {
+                    var request = new XMLHttpRequest();
+                    error.classList.add('d-none');
+                    resultado.classList.add('d-none');
+                    spinner.classList.remove('d-none');
+                    calcular.disabled = true;
+
+                    request.onload = function () {
+                        if (request.status >= 200 && request.status < 300) {
+                            var response = request.responseText;
+                            response = JSON.parse(response);
+
+                            resultado.classList.remove('d-none');
+                            error.classList.add('d-none');
+                            document.querySelector('#diez').innerHTML = formatear(response.dxc, '$');
+                            document.querySelector('#saldo').innerHTML = formatear(response.saldo, '$');
+                            document.querySelector('#impuesto').innerHTML = response.impuesto;
+                        } else {
+                            error.classList.remove('d-none');
+                            resultado.classList.add('d-none');
+                        }
+
+                        spinner.classList.add('d-none');
+                        calcular.disabled = false;
+                    }
+
+                    var url_base = 'http://TrabajoFinalM4SWD:9091/rest/msdxc/todo?';
+                    //var url_base = 'http://localhost:9091/rest/msdxc/todo?';
+                    var query = url_base + 'sueldo=' + limpiar(sueldo.value) + '&ahorro=' + limpiar(ahorro.value);
+                    request.open('GET', query);
+                    request.send(null);
+                }
+
+                var resultado = document.querySelector('#resultado');
+                var error = document.querySelector('#error');
+                var sueldo = document.querySelector('#sueldo');
+                var ahorro = document.querySelector('#ahorro');
+                var spinner = document.querySelector('.spinner-border');
+                var calcular = document.querySelector('#calcular');
+
+                var url = new URL(window.location.href);
+
+                sueldo.value = formatear(500000, '');
+                ahorro.value = formatear(20000000, '');
+                if (url.searchParams.get("ahorro") &&
+                    url.searchParams.get("sueldo") &&
+                    url.searchParams.get("sueldo").length > 0 &&
+                    url.searchParams.get("ahorro").length > 0) {
+                    sueldo.value = formatear(sueldo_tmp, '');
+                    ahorro.value = formatear(ahorro_tmp, '');
+                    enviar();
+                }
+
+                const forms = document.querySelectorAll('.requires-validation');
+                Array.from(forms).forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        var val = false;
+                        if (val = limpiar(sueldo.value)) {
+                            sueldo.value = formatear(val, '');
+                        } else {
+                            sueldo.value = '';
+                        }
+
+                        if (val = limpiar(ahorro.value)) {
+                            ahorro.value = formatear(val, '')
+                        } else {
+                            ahorro.value = '';
+                        }
+
+                        if (form.checkValidity()) {
+                            enviar();
+                        } else {
+                            resultado.classList.add('d-none');
+                            error.classList.add('d-none');
+                        }
+
+                        event.preventDefault();
+                        event.stopPropagation();
+                        form.classList.add('was-validated');
+                    }, false)
+                })
+            })()
+        </script>
+    </body>
+</html>
