@@ -20,14 +20,13 @@ import org.springframework.stereotype.Component;
 public class UF {
     Long uf;
     Calendar fecha;
-    static UF instance = null;
 
     UF() {
         this.fecha = Calendar.getInstance();
         this.fecha.setTime(Date.from(Instant.now()));
         this.uf = this.getUfToday();
     }
-    
+
     public Long getUf() {
         if (!isCurrUf()) {
             this.uf = this.getUfToday();
@@ -35,13 +34,13 @@ public class UF {
 
         return this.uf;
     }
-    
+
     private boolean isCurrUf() {
         Calendar cNow = Calendar.getInstance();
         cNow.setTime(Date.from(Instant.now()));
         return cNow.get(Calendar.DAY_OF_YEAR) == this.fecha.get(Calendar.DAY_OF_YEAR);
     }
-    
+
     private long getUfToday() {
         JsonObject jsonObject = null;
 

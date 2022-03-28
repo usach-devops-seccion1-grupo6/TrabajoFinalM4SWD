@@ -26,6 +26,8 @@ public class UtilTest {
         assertEquals(684910, util.getImpuesto(1700000, 23000000));
         assertEquals(2184267, util.getImpuesto(2900000, 30000000));
         assertEquals(4892692, util.getImpuesto(4000000, 60000000));
+        assertEquals(15905982, util.getImpuesto(7000000, 600000000));
+        assertEquals(96668064, util.getImpuesto(25000000, 6000000000L));
     }
 
     @Test
