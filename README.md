@@ -28,7 +28,7 @@ $ docker run --rm --name TrabajoFinalM4SWD --net servers -it -p 9091:9091 -v $(p
     * URI: /rest/msdxc/saldo?ahorro={numero}&sueldo={numero}
     * Respuesta: integer; ejemplo: 500000
 * Impuesto:
-    * URI: /rest/msdxc/impuesto?sueldo={numero}
+    * URI: /rest/msdxc/impuesto?sueldo={numero}&ahorro={numero}
     * Respuesta: string; ejemplo: Si
 * UF:
     * URI: /rest/msdxc/uf
