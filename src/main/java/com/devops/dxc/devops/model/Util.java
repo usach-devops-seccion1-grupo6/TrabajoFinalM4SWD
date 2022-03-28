@@ -1,15 +1,16 @@
 package com.devops.dxc.devops.model;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
+import com.devops.dxc.devops.service.UF;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Util {
+
+    @Autowired
+    private UF uf;
+
     /**
      * Método para cacular el 10% del ahorro en la AFP. Las reglas de negocio se
      * pueden conocer en
@@ -18,7 +19,7 @@ public class Util {
      * @param ahorro
      * @return
      */
-    public static long getDxc(long ahorro) {
+    public long getDxc(long ahorro) {
         if (((ahorro * 0.1) / getUf()) > 150) {
             return (long) (150 * getUf());
         } else if ((ahorro * 0.1) <= 1000000 && ahorro >= 1000000) {
@@ -37,26 +38,11 @@ public class Util {
      * 
      * @return
      */
-    public static long getUf() {
-
-        JsonObject jsonObject = null;
-
-        try {
-            HttpRequest httpRequest = HttpRequest.newBuilder(new URI("https://mindicador.cl/api/"))
-                    .header("Accept", "application/json").build();
-            HttpResponse<String> httpResponse = HttpClient.newBuilder().build()
-                    .send(httpRequest, BodyHandlers.ofString());
-
-            jsonObject = JsonParser.parseString(httpResponse.body()).getAsJsonObject();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject.get("uf").getAsJsonObject().get("valor").getAsLong();
+    public long getUf() {
+        return uf.getUf();
     }
 
-    public static long getImpuesto(long sueldo, long ahorro) {
+    public long getImpuesto(long sueldo, long ahorro) {
 
         if (sueldo < 1500000) {
             return 0;
@@ -86,7 +72,7 @@ public class Util {
         return (long) impuesto;
     }
 
-    public static long saldoRestante(long ahorro, long sueldo) {
+    public long saldoRestante(long ahorro, long sueldo) {
         return ahorro - getDxc(ahorro);
     }
 
