@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class Util {
-
     /**
      * Método para cacular el 10% del ahorro en la AFP. Las reglas de negocio se
      * pueden conocer en
@@ -67,7 +66,9 @@ public class Util {
 
         // tabla con valores de https://www.sii.cl/valores_y_fechas/renta/2022/personas_naturales.html
         float impuesto = 0.0f;
-        if (sueldoAnual > 19501560 && (sueldoAnual < 32502600)) {
+        if (sueldoAnual > 8775702 && (sueldoAnual < 19501560)) {
+            impuesto = 0.04f;
+        } else if (sueldoAnual >= 19501560 && (sueldoAnual < 32502600)) {
             impuesto = 0.08f;
         } else if (sueldoAnual >= 32502600 && (sueldoAnual < 45503640)) {
             impuesto = 0.135f;
