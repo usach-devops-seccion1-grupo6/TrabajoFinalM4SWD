@@ -17,7 +17,7 @@ public class UtilTest {
     void testGetImpuesto() {
         assertEquals("No", Util.getImpuesto(1400000));
         assertEquals("Si", Util.getImpuesto(1700000));
-        assertEquals("Si", Util.getImpuesto(1500000));
+        assertEquals("No", Util.getImpuesto(1500000));
     }
 
     @Test
