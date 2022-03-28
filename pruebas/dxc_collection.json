@@ -121,7 +121,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9091/rest/msdxc/impuesto?sueldo=100000",
+					"raw": "http://localhost:9091/rest/msdxc/impuesto?sueldo=1500000&ahorro=10000000",
 					"protocol": "http",
 					"host": [
 						"localhost"
