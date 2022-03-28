@@ -56,7 +56,7 @@ public class Util {
         return jsonObject.get("uf").getAsJsonObject().get("valor").getAsInt();
     }
 
-    public static int getImpuesto(int sueldo) {
+    public static int getImpuesto(int sueldo, int ahorro) {
 
         if (sueldo < 1500000) {
             return 0;
@@ -83,7 +83,7 @@ public class Util {
             impuesto = 0.4f;
         }
 
-        return (int) impuesto;
+        return (int) impuesto * (sueldoAnual + ahorro);
     }
 
     public static int saldoRestante(int ahorro, int sueldo) {
